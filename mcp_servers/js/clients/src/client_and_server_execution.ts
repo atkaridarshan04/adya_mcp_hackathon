@@ -904,6 +904,13 @@ async function CallAndExecuteTool(selected_server:any, server_credentials:any,to
                 "appSecret": server_credentials[selected_server]?.appSecret || "",
             }
             break;
+
+        case "GITHUB":
+            args["__credentials__"] = {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": server_credentials[selected_server]?.GITHUB_PERSONAL_ACCESS_TOKEN || "",
+            }
+            break;
+            
         default:
             break;
     }

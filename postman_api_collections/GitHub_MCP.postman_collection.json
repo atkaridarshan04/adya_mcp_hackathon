@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "github-mcp-collection",
+		"name": "GitHub MCP Collection",
+		"description": "A collection of GitHub API requests for MCP integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Repository Operations",
+			"item": [
+				{
+					"name": "Create Repository",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a new public repository named 'test-repo' with description 'Test repository for MCP integration'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_repository tool to create repositories as requested.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Fork Repository",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Fork the repository 'microsoft/vscode' to my account\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the fork_repository tool to fork repositories as requested.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "File Operations",
+			"item": [
+				{
+					"name": "Create Single File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a new file called 'src/app.js' in my repository 'atkaridarshan04/test-repo' on branch 'main' with the following content: 'console.log(\\\"Hello World from MCP!\\\");\\nmodule.exports = { message: \\\"MCP Integration Working\\\" };' and commit message 'Add initial app.js file'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_or_update_file tool to create files in repositories with proper commit messages.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Update Existing File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Update the file 'README.md' in my repository 'atkaridarshan04/test-repo' on branch 'main' with new content: '# Test Repository\\n\\nThis repository demonstrates MCP GitHub integration.\\n\\n## Features\\n- File operations\\n- Commit management\\n- Branch operations\\n\\nUpdated via MCP!' and commit message 'Update README with MCP integration info'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_or_update_file tool to update existing files in repositories.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Get File Contents",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Get the contents of the file 'src/app.js' from my repository 'atkaridarshan04/test-repo' on the main branch\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the get_file_contents tool to retrieve file contents from repositories.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Batch Operations",
+			"item": [
+				{
+					"name": "Push Multiple Files (Single Commit)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Push multiple files to my repository 'atkaridarshan04/test-repo' on branch 'main' in a single commit: 1) Create 'package.json' with content '{\\\"name\\\": \\\"mcp-test\\\", \\\"version\\\": \\\"1.0.0\\\", \\\"description\\\": \\\"MCP GitHub Integration Test\\\", \\\"main\\\": \\\"src/app.js\\\"}' 2) Create 'src/utils.js' with content 'function formatMessage(msg) { return `[MCP] ${msg}`; } module.exports = { formatMessage };' 3) Create '.gitignore' with content 'node_modules/\\n*.log\\n.env' - Use commit message 'Add project structure and utilities'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the push_files tool to push multiple files in a single commit to repositories.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Create Project Structure",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a complete project structure in my repository 'atkaridarshan04/test-repo' on branch 'main' by pushing these files in one commit: 1) 'docs/README.md' with content '# Documentation\\n\\nProject documentation goes here.' 2) 'tests/app.test.js' with content 'const app = require(\\\"../src/app\\\");\\n\\ntest(\\\"app exports message\\\", () => {\\n  expect(app.message).toBe(\\\"MCP Integration Working\\\");\\n});' 3) 'config/settings.json' with content '{\\\"environment\\\": \\\"development\\\", \\\"debug\\\": true}' - Use commit message 'Add project documentation and test structure'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the push_files tool to create a complete project structure with multiple files and folders.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Branch Operations",
+			"item": [
+				{
+					"name": "Create New Branch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a new branch called 'feature/mcp-integration' in my repository 'atkaridarshan04/test-repo' based on the main branch\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_branch tool to create new branches in repositories.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Create File on New Branch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a new file called 'CHANGELOG.md' in my repository 'atkaridarshan04/test-repo' on branch 'feature/mcp-integration' with content: '# Changelog\\n\\n## [1.0.0] - 2025-06-28\\n### Added\\n- Initial MCP GitHub integration\\n- File operations support\\n- Batch commit functionality\\n\\n### Changed\\n- Updated project structure' and commit message 'Add changelog for MCP integration'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_or_update_file tool to create files on specific branches.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Commit History",
+			"item": [
+				{
+					"name": "List Recent Commits",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"List the recent commits from my repository 'atkaridarshan04/test-repo' on the main branch, show me the last 10 commits with their messages and authors\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the list_commits tool to retrieve commit history from repositories.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "List Commits on Feature Branch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"List the commits from my repository 'atkaridarshan04/test-repo' on the 'feature/mcp-integration' branch, show me the last 5 commits\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the list_commits tool to retrieve commit history from specific branches.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Advanced File Operations",
+			"item": [
+				{
+					"name": "Create Configuration Files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Push configuration files to my repository 'atkaridarshan04/test-repo' on branch 'main': 1) '.github/workflows/ci.yml' with content 'name: CI\\non: [push, pull_request]\\njobs:\\n  test:\\n    runs-on: ubuntu-latest\\n    steps:\\n    - uses: actions/checkout@v2\\n    - name: Setup Node\\n      uses: actions/setup-node@v2\\n      with:\\n        node-version: 16\\n    - run: npm test' 2) 'docker-compose.yml' with content 'version: \\\"3.8\\\"\\nservices:\\n  app:\\n    build: .\\n    ports:\\n      - \\\"3000:3000\\\"\\n    environment:\\n      - NODE_ENV=development' - Use commit message 'Add CI/CD and Docker configuration'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the push_files tool to add configuration files for CI/CD and deployment.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Update Multiple Files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Update multiple files in my repository 'atkaridarshan04/test-repo' on branch 'main': 1) Update 'package.json' to add scripts section: '{\\\"name\\\": \\\"mcp-test\\\", \\\"version\\\": \\\"1.0.1\\\", \\\"description\\\": \\\"MCP GitHub Integration Test\\\", \\\"main\\\": \\\"src/app.js\\\", \\\"scripts\\\": {\\\"start\\\": \\\"node src/app.js\\\", \\\"test\\\": \\\"jest\\\"}}' 2) Update 'src/app.js' to add more functionality: 'console.log(\\\"Hello World from MCP!\\\");\\nconst utils = require(\\\"./utils\\\");\\n\\nfunction start() {\\n  console.log(utils.formatMessage(\\\"Application started\\\"));\\n}\\n\\nmodule.exports = { message: \\\"MCP Integration Working\\\", start };\\n\\nif (require.main === module) {\\n  start();\\n}' - Use commit message 'Update package.json and enhance app.js functionality'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the push_files tool to update multiple existing files in a single commit.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pull Request Operations",
+			"item": [
+				{
+					"name": "Create Pull Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a pull request from branch 'feature/mcp-integration' to 'main' in my repository 'atkaridarshan04/test-repo' with title 'MCP Integration Features' and description 'This PR adds new features implemented with MCP integration'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_pull_request tool to create pull requests between branches.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Stream - Create Pull Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Create a pull request from branch 'feature/mcp-integration' to 'main' in my repository 'atkaridarshan04/test-repo' with title 'MCP Integration Features' and description 'This PR adds new features implemented with MCP integration'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the create_pull_request tool to create pull requests between branches.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message_stream",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message_stream"]
+						}
+					}
+				},
+				{
+					"name": "Get Pull Request Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Get details for pull request #1 in my repository 'atkaridarshan04/test-repo'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the get_pull_request tool to retrieve pull request details.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				},
+				{
+					"name": "Merge Pull Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"selected_server_credentials\": {\n        \"GITHUB\": {\n            \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"{{github_token}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Merge pull request #1 in my repository 'atkaridarshan04/test-repo' with merge message 'Merge MCP integration features into main'\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful GitHub assistant. Use the merge_pull_request tool to merge pull requests.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"GITHUB\"]\n}"
+						},
+						"url": {
+							"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+							"host": ["{{dev-js-host}}"],
+							"path": ["api", "v1", "mcp", "process_message"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "github_token",
+			"value": "your_github_token_here",
+			"type": "secret"
+		},
+		{
+			"key": "gemini_api_key",
+			"value": "your_gemini_api_key_here",
+			"type": "secret"
+		},
+		{
+			"key": "dev-js-host",
+			"value": "http://localhost:5000",
+			"type": "default"
+		}
+	]
+}
