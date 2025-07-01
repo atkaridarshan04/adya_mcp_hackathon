@@ -1,0 +1,16 @@
+{
+  "amazonQ.mcpServers": {
+    "Agora": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "c:\\Users\\anupb\\Downloads\\adya_mcp_hackathon\\mcp_servers\\python\\servers\\AGORA",
+        "run",
+        "agora-mcp"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "paste-your-api-key-here"
+      }
+    }
+  }
+}
