@@ -690,13 +690,23 @@ async def client_and_server_execution(payload: Dict[str, Any], streaming_callbac
                             "result": tool_call_result,
                         })
 
-                        tool_call_content_data = f"Executed tool: {tool_name} and the result is: {json.dumps(tool_call_result)}"
+                        # Extract actual AWS CLI output
+                        if isinstance(tool_call_result, dict) and "content" in tool_call_result:
+                            if isinstance(tool_call_result["content"], list) and len(tool_call_result["content"]) > 0:
+                                actual_result = tool_call_result["content"][0].get("text", str(tool_call_result))
+                            else:
+                                actual_result = str(tool_call_result["content"])
+                        else:
+                            actual_result = str(tool_call_result)
+                        
+                        # Use actual result instead of wrapped JSON
+                        tool_call_content_data = actual_result
                         client_details["chat_history"].append({
                             "role": "model",
                             "content": tool_call_content_data,
                         })
 
-                    count+=1
+                    break  # Return tool results immediately
             else:
                 # No function call, normal response case
                 client_details["prompt"] = f"{temp_prompt}. Available tools: {json.dumps(tool_call_details_arr)}"
@@ -915,7 +925,8 @@ async def call_and_execute_tool(
         case "FACEBOOK_ADS_MCP":
             args["__credentials__"]   = creds
             args["server_credentials"] = creds
-        case _:
+        case "AWS-EC2":
+            args["credentials"]   = creds
             pass
 
     client = MCPServers[selected_server]

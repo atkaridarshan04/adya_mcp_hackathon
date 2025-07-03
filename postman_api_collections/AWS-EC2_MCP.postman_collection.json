@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "d4045b3a-6a20-42ae-a9d2-17910496d644",
+		"name": "AWS-EC2 MCP Collection",
+		"description": "Complete collection of AWS EC2 operations including instances, security groups, key pairs, VPC, EBS, AMI, and monitoring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38192013",
+		"_collection_link": "https://myteam-8941.postman.co/workspace/MCP-Servers-API~d1994848-a4f9-4c16-9983-8f73603007a2/collection/38192013-d4045b3a-6a20-42ae-a9d2-17910496d644?action=share&source=collection_link&creator=38192013"
+	},
+	"item": [
+		{
+			"name": "Instance Operations",
+			"item": [
+				{
+					"name": "Create Instance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"create a t3.micro EC2 instance with ami id ami-042b4708b1d05f512 in subnet with id subnet-071b870f3684e03ca using key pair aws_ssh in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Instances",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"show me all my EC2 instances in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start Instance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"start instance i-0aec2de77244774d1 in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Instance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"stop instance i-0aec2de77244774d1 in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Terminate Instance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"terminate  instance i-0aec2de77244774d1 in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Security Groups",
+			"item": [
+				{
+					"name": "List Security Groups",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"show me all security groups in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Security Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"create a security group called web-servers in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add HTTP Rule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"add HTTP access to security group sg-12345678 in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Key Pairs",
+			"item": [
+				{
+					"name": "List Key Pairs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"show me all key pairs in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Key Pair",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"create a key pair called demo-key in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VPC Operations",
+			"item": [
+				{
+					"name": "List VPCs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"show me all VPCs\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Subnets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"show me all subnets in eu-north-1 region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EBS Volumes",
+			"item": [
+				{
+					"name": "List Volumes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"show me all EBS volumes {{aws_region}}\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Volume",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"create a 10GB EBS volume\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Monitoring",
+			"item": [
+				{
+					"name": "Instance Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selected_server_credentials\": {\n        \"AWS-EC2\": {\n            \"aws_access_key_id\": \"{{aws_access_key_id}}\",\n            \"aws_secret_access_key\": \"{{aws_secret_access_key}}\",\n            \"aws_region\": \"{{aws_region}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.3,\n        \"max_token\": 25000,\n        \"input\": \"check status of all instances in {{aws_region}} region\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are an AWS infrastructure assistant. Execute appropriate AWS commands based on user requests.\",\n        \"chat_model\": \"gemini-2.0-flash\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"AWS-EC2\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/mcp/process_message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mcp",
+								"process_message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5001"
+		},
+		{
+			"key": "aws_access_key_id",
+			"value": "your-aws-access-key-id-here"
+		},
+		{
+			"key": "aws_secret_access_key",
+			"value": "your-aws-secret-access-key-here"
+		},
+		{
+			"key": "aws_region",
+			"value": "eu-north-1"
+		},
+		{
+			"key": "gemini_api_key",
+			"value": "your-gemini-api-key-here"
+		}
+	]
+}
