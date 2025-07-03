@@ -209,10 +209,47 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const args = request.params.arguments as any;
     const token = args.__credentials__?.GITHUB_PERSONAL_ACCESS_TOKEN;
 
+    // Helper functions for standardized responses
+    const createSuccessResponse = (operation: string, message: string, data: any, metadata: any = {}) => {
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            success: true,
+            operation,
+            message,
+            data,
+            metadata: {
+              timestamp: new Date().toISOString(),
+              ...metadata
+            }
+          }, null, 2)
+        }]
+      };
+    };
+
+    const createErrorResponse = (operation: string, message: string, error: any, suggestions: string[] = []) => {
+      return {
+        content: [{
+          type: "text", 
+          text: JSON.stringify({
+            success: false,
+            operation,
+            message,
+            error: error.message || error,
+            suggestions,
+            metadata: {
+              timestamp: new Date().toISOString()
+            }
+          }, null, 2)
+        }]
+      };
+    };
+
     switch (request.params.name) {
       case "fork_repository": {
         const args = repository.ForkRepositorySchema.parse(request.params.arguments);
-        const fork = await repository.forkRepository(args);
+        const fork = await repository.forkRepository({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(fork, null, 2) }],
         };
@@ -234,7 +271,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "search_repositories": {
         const args = repository.SearchRepositoriesSchema.parse(request.params.arguments);
-        const results = await repository.searchRepositories(args);
+        const results = await repository.searchRepositories({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
         };
@@ -242,7 +279,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "create_repository": {
         const args = repository.CreateRepositoryOptionsSchema.parse(request.params.arguments);
-        const result = await repository.createRepository(args);
+        const result = await repository.createRepository({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
         };
@@ -305,7 +342,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "create_pull_request": {
         const args = pulls.CreatePullRequestSchema.parse(request.params.arguments);
-        const pullRequest = await pulls.createPullRequest(args);
+        const pullRequest = await pulls.createPullRequest({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(pullRequest, null, 2) }],
         };
@@ -313,7 +350,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "search_code": {
         const args = search.SearchCodeSchema.parse(request.params.arguments);
-        const results = await search.searchCode(args);
+        const results = await search.searchCode({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
         };
@@ -321,7 +358,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "search_issues": {
         const args = search.SearchIssuesSchema.parse(request.params.arguments);
-        const results = await search.searchIssues(args);
+        const results = await search.searchIssues({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
         };
@@ -329,7 +366,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "search_users": {
         const args = search.SearchUsersSchema.parse(request.params.arguments);
-        const results = await search.searchUsers(args);
+        const results = await search.searchUsers({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
         return {
           content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
         };
@@ -364,10 +401,32 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "list_commits": {
         const args = commits.ListCommitsSchema.parse(request.params.arguments);
-        const results = await commits.listCommits(args);
-        return {
-          content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
-        };
+        try {
+          const results = await commits.listCommits({ ...args, __credentials__: { GITHUB_PERSONAL_ACCESS_TOKEN: token } });
+          return createSuccessResponse(
+            "list_commits",
+            `Successfully retrieved ${Array.isArray(results) ? results.length : "unknown number of"} commits from ${args.owner}/${args.repo}`,
+            results,
+            {
+              repository: `${args.owner}/${args.repo}`,
+              branch: args.sha || "default branch",
+              commit_count: Array.isArray(results) ? results.length : 0,
+              page: args.page || 1,
+              per_page: args.perPage || 30
+            }
+          );
+        } catch (error: any) {
+          return createErrorResponse(
+            "list_commits",
+            `Failed to retrieve commits from ${args.owner}/${args.repo}`,
+            error,
+            [
+              "Check if the repository exists and is accessible",
+              "Verify the branch/SHA exists",
+              "Ensure your GitHub token has read access to the repository"
+            ]
+          );
+        }
       }
 
       case "get_issue": {
@@ -407,10 +466,54 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "merge_pull_request": {
         const args = pulls.MergePullRequestSchema.parse(request.params.arguments);
         const { owner, repo, pull_number, ...options } = args;
-        const result = await pulls.mergePullRequest(owner, repo, pull_number, options, token);
-        return {
-          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
-        };
+        try {
+          const result = await pulls.mergePullRequest(owner, repo, pull_number, options, token);
+          
+          // Enhanced response with clear success indication
+          const enhancedResponse = {
+            success: true,
+            message: `Pull request #${pull_number} has been successfully merged`,
+            merge_details: result,
+            repository: `${owner}/${repo}`,
+            pull_request_number: pull_number,
+            merged_at: new Date().toISOString()
+          };
+          
+          // Debug logging
+          console.error("DEBUG - MERGE SUCCESS RESPONSE:", JSON.stringify(enhancedResponse, null, 2));
+          
+          return {
+            content: [{ 
+              type: "text", 
+              text: JSON.stringify(enhancedResponse, null, 2) 
+            }],
+          };
+        } catch (error: any) {
+          // Enhanced error response
+          const errorResponse = {
+            success: false,
+            message: `Failed to merge pull request #${pull_number}`,
+            error: error.message || error,
+            repository: `${owner}/${repo}`,
+            pull_request_number: pull_number,
+            possible_reasons: [
+              "Pull request is not mergeable (conflicts, checks failing, etc.)",
+              "Insufficient permissions", 
+              "Pull request is already merged or closed",
+              "Branch protection rules prevent merging"
+            ]
+          };
+          
+          // Debug logging
+          console.error("DEBUG - MERGE ERROR RESPONSE:", JSON.stringify(errorResponse, null, 2));
+          
+          return {
+            content: [{ 
+              type: "text", 
+              text: JSON.stringify(errorResponse, null, 2) 
+            }],
+          };
+        }
       }
 
       case "get_pull_request_files": {
