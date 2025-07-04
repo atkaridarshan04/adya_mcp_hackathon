@@ -928,6 +928,9 @@ async def call_and_execute_tool(
         case "AWS-EC2":
             args["credentials"]   = creds
             pass
+        case "TEAMSPEAK":
+            args["teamspeak_credentials"] = creds
+            pass
 
     client = MCPServers[selected_server]
 

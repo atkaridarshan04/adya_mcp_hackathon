@@ -92,7 +92,7 @@ async def process_message():
         response_dict = {
             "Data": execution_response.Data,
             "Error": execution_response.Error,
-            "Status": execution_response.Status
+            "Error": str(execution_response.Error) if execution_response.Error is not None else None,            "Status": execution_response.Status
         }
         return jsonify(response_dict), 200
     

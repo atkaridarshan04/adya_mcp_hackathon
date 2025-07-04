@@ -1,0 +1,122 @@
+services:
+  # TeamSpeak 3 Server pour les tests
+  teamspeak3-server:
+    # Use ARM64 compatible image for local development on Mac M1/M2
+    # and fallback to official image for CI AMD64
+    image: ${TEAMSPEAK_IMAGE:-teamspeak:latest}
+    # Allow platform emulation when needed (ARM64 -> AMD64)
+    platform: ${TEAMSPEAK_PLATFORM:-linux/amd64}
+    container_name: ts3-test-server
+    restart: unless-stopped
+    # Resource limits for CI stability
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    environment:
+      TS3SERVER_DB_PLUGIN: ts3db_sqlite3
+      TS3SERVER_DB_SQLCREATEPATH: create_sqlite
+      TS3SERVER_DB_HOST: ""
+      TS3SERVER_DB_USER: ""
+      TS3SERVER_DB_PASSWORD: ""
+      TS3SERVER_DB_NAME: ""
+      TS3SERVER_DB_WAITUNTILREADY: 120
+      TS3SERVER_LICENSE: accept
+      # Configuration pour les tests - démarrage rapide
+      TS3SERVER_QUERY_PROTOCOLS: raw
+      TS3SERVER_QUERY_TIMEOUT: 300
+      TS3SERVER_LOGQUERYCOMMANDS: 0
+      TS3SERVER_DBLOGKEEPDAYS: 1
+      TS3SERVER_LOGAPPEND: 0
+      # Optimisations pour CI - réduction des ressources
+      TS3SERVER_MACHINE_ID: ci-test-server
+      TS3SERVER_DB_CONNECTIONS: 2
+      TS3SERVER_QUERY_BUFFER: 1
+      # Désactiver les fonctionnalités non essentielles en CI
+      TS3SERVER_HINTS: 0
+      # Configuration réseau pour autoriser les connexions inter-container
+      TS3SERVER_QUERY_IP_ALLOWLIST: "127.0.0.1,::1,172.20.0.0/16,10.0.0.0/8,192.168.0.0/16"
+    ports:
+      - "9987:9987/udp"   # TeamSpeak port
+      - "10011:10011"     # ServerQuery port  
+      - "30033:30033"     # File transfer port
+    volumes:
+      - ts3-test-data:/var/ts3server/
+      - ts3-test-logs:/var/ts3server/logs/
+    networks:
+      - ts3-test-network
+    # Simplified healthcheck for CI reliability
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 10011 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+
+  # Service de test pour notre MCP
+  teamspeak-mcp-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ts3-mcp-test
+    depends_on:
+      teamspeak3-server:
+        condition: service_healthy
+    environment:
+      TEAMSPEAK_HOST: teamspeak3-server
+      TEAMSPEAK_PORT: 10011
+      TEAMSPEAK_USER: serveradmin
+      TEAMSPEAK_PASSWORD: ""  # Will be set from TS3 server logs
+      TEAMSPEAK_SERVER_ID: 1
+      # Test configuration
+      TEST_MODE: "true"
+      LOG_LEVEL: DEBUG
+    networks:
+      - ts3-test-network
+    volumes:
+      - ./tests:/app/tests
+      - ./test_results:/app/test_results
+    command: ["test"]
+
+  # Service pour extraire le token admin du serveur TS3
+  token-extractor:
+    image: alpine:latest
+    container_name: ts3-token-extractor
+    depends_on:
+      teamspeak3-server:
+        condition: service_healthy
+    volumes:
+      - ts3-test-logs:/ts3-logs:ro
+      - ./scripts:/scripts
+    networks:
+      - ts3-test-network
+    command: >
+      sh -c "
+        echo 'Extracting admin token from TS3 logs...';
+        sleep 5;
+        grep -r 'token=' /ts3-logs/ | head -1 | sed 's/.*token=\\([A-Za-z0-9+/=]*\\).*/\\1/' > /scripts/admin_token.txt;
+        if [ -s /scripts/admin_token.txt ]; then
+          echo 'Admin token extracted successfully';
+          cat /scripts/admin_token.txt;
+        else
+          echo 'Failed to extract admin token';
+          exit 1;
+        fi
+      "
+
+volumes:
+  ts3-test-data:
+    driver: local
+  ts3-test-logs:
+    driver: local
+
+networks:
+  ts3-test-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16 

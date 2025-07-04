@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "teamspeak": {
+      "command": "python",
+      "args": ["-m", "teamspeak_mcp.server"],
+      "env": {
+        "TEAMSPEAK_HOST": "your-server.example.com",
+        "TEAMSPEAK_PORT": "10011",
+        "TEAMSPEAK_USER": "serveradmin",
+        "TEAMSPEAK_PASSWORD": "your-password",
+        "TEAMSPEAK_SERVER_ID": "1"
+      }
+    }
+  }
+} 

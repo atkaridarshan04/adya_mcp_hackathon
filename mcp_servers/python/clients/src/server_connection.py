@@ -41,7 +41,19 @@ async def initialize_all_mcp(exit_stack):
                     print(f"Path exists        : {os.path.exists(absolute_path)}")
 
             # Start stdio client
-            server_params = StdioServerParameters(command=server["command"], args=server["args"])
+            # Handle working directory for servers that need it
+            cwd = None
+            if "cwd" in server:
+                cwd = os.path.abspath(server["cwd"])
+                print(f"Working directory  : {cwd}")
+                print(f"Directory exists   : {os.path.exists(cwd)}")
+
+            # Start stdio client with optional working directory
+            server_params = StdioServerParameters(
+                command=server["command"], 
+                args=server["args"],
+                cwd=cwd
+            )
             stdio_transport = await exit_stack.enter_async_context(stdio_client(server_params))
             stdio, write = stdio_transport
 

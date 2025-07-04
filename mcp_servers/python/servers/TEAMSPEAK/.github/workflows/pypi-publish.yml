@@ -1,0 +1,90 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.4, v2.0.0, etc.
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Required for trusted publishing
+      contents: write  # Required for creating GitHub releases
+      pull-requests: read
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Extract version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+    - name: Update version in pyproject.toml
+      run: |
+        sed -i 's/version = "[^"]*"/version = "${{ steps.get_version.outputs.VERSION }}"/' pyproject.toml
+        cat pyproject.toml | grep version
+
+    - name: Build package
+      run: python -m build
+
+    - name: Verify package contents
+      run: |
+        twine check dist/*
+        ls -la dist/
+
+    - name: Publish to TestPyPI first
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        skip-existing: true
+
+    - name: Test installation from TestPyPI
+      run: |
+        sleep 60  # Wait for TestPyPI to propagate
+        pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ teamspeak-mcp==${{ steps.get_version.outputs.VERSION }} || true
+
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        skip-existing: true
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/*
+        generate_release_notes: true
+        body: |
+          ## 🚀 TeamSpeak MCP v${{ steps.get_version.outputs.VERSION }}
+          
+          This release is now available on PyPI!
+          
+          ### 📦 Installation
+          ```bash
+          uvx install teamspeak-mcp
+          # or
+          pip install teamspeak-mcp
+          ```
+          
+          ### 🐳 Docker
+          ```bash
+          docker pull ghcr.io/marlburrow/teamspeak-mcp:v${{ steps.get_version.outputs.VERSION }}
+          ```
+          
+          ### 📋 Full Changelog
+          See below for all changes in this release.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

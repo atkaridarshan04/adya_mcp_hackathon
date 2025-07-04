@@ -1,0 +1,56 @@
+version: '3.8'
+
+# Example docker-compose file using pre-built images from GitHub Container Registry
+# Copy this to docker-compose.yml or use with: docker-compose -f docker-compose.ghcr.yml up
+
+services:
+  teamspeak-mcp:
+    image: ghcr.io/marlburrow/teamspeak-mcp:latest  # Use pre-built image
+    container_name: teamspeak-mcp
+    restart: unless-stopped
+    
+    # TeamSpeak environment variables
+    # Modify these values or use a .env file
+    environment:
+      - TEAMSPEAK_HOST=${TEAMSPEAK_HOST:-your-server.example.com}
+      - TEAMSPEAK_PORT=${TEAMSPEAK_PORT:-10011}
+      - TEAMSPEAK_USER=${TEAMSPEAK_USER:-serveradmin}
+      - TEAMSPEAK_PASSWORD=${TEAMSPEAK_PASSWORD}
+      - TEAMSPEAK_SERVER_ID=${TEAMSPEAK_SERVER_ID:-1}
+    
+    # Alternative: use a .env file
+    env_file:
+      - .env
+    
+    # Keep stdin open for MCP
+    stdin_open: true
+    tty: true
+    
+    # Logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Labels for Docker Swarm or organization
+    labels:
+      - "traefik.enable=false"
+      - "com.teamspeak-mcp.description=MCP Server for TeamSpeak"
+      - "com.teamspeak-mcp.version=1.0.0"
+
+  # Optional service for testing with pre-built image
+  teamspeak-mcp-test:
+    image: ghcr.io/marlburrow/teamspeak-mcp:latest
+    container_name: teamspeak-mcp-test
+    command: ["python", "test_mcp.py"]
+    environment:
+      - TEAMSPEAK_HOST=${TEAMSPEAK_HOST:-your-server.example.com}
+      - TEAMSPEAK_PORT=${TEAMSPEAK_PORT:-10011}
+      - TEAMSPEAK_USER=${TEAMSPEAK_USER:-serveradmin}
+      - TEAMSPEAK_PASSWORD=${TEAMSPEAK_PASSWORD}
+      - TEAMSPEAK_SERVER_ID=${TEAMSPEAK_SERVER_ID:-1}
+    profiles:
+      - test
+    depends_on:
+      - teamspeak-mcp 

@@ -1,0 +1,65 @@
+name: Test Docker Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image (test)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: false
+          load: true
+          tags: teamspeak-mcp:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test Docker image
+        run: |
+          docker run --rm teamspeak-mcp:test help
+          docker run --rm -e TEAMSPEAK_HOST=test.example.com -e TEAMSPEAK_PASSWORD=dummy teamspeak-mcp:test config
+
+  test-python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Test MCP tools (without connection)
+        run: |
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          from teamspeak_mcp.server import TeamSpeakMCPServer, TOOLS
+          server = TeamSpeakMCPServer()
+          print(f'✅ MCP server initialized with {len(TOOLS)} tools')
+          print('Tools:', [tool.name for tool in TOOLS])
+          " 

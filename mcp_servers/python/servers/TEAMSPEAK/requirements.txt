@@ -1,0 +1,4 @@
+mcp>=1.9.0
+ts3
+aiohttp>=3.8.0
+pydantic>=2.0.0 

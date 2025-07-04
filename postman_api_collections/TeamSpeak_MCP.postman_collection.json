@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "a4b2fa79-af96-40eb-91e1-3fac4d76ec3a",
+		"name": "TeamSpeak MCP Collection",
+		"description": "Comprehensive TeamSpeak MCP server demonstration with key tools and real management tasks. Shows dynamic credential injection and full TeamSpeak server administration capabilities.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38192013",
+		"_collection_link": "https://myteam-8941.postman.co/workspace/MCP-Servers-API~d1994848-a4f9-4c16-9983-8f73603007a2/collection/38192013-a4b2fa79-af96-40eb-91e1-3fac4d76ec3a?action=share&source=collection_link&creator=38192013"
+	},
+	"item": [
+		{
+			"name": "1. Connect to TeamSpeak Server",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Connect to the TeamSpeak server and verify the connection status\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. Connect to the server and confirm the connection status. Use the connect_to_server tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "Establish connection to TeamSpeak server using dynamic credentials"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get Server Information",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Get comprehensive information about the TeamSpeak server including version, uptime, client counts, and configuration details\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. Retrieve detailed server information including statistics, version, uptime, and configuration. Use the server_info tool and format the response clearly.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "Get comprehensive server information and statistics"
+			},
+			"response": []
+		},
+		{
+			"name": "3. List All Connected Clients",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Show me all clients currently connected to the TeamSpeak server with their details including nicknames, channels, and connection info\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. List all connected clients with comprehensive information including client ID, nickname, channel, connection time, and other relevant details. Use the list_clients tool and format the response in a clear, organized manner.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "List all connected clients with detailed information"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Send Private Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Send a private message to client ID 1 saying 'Hello! This is a private message sent via MCP API integration. Welcome to our TeamSpeak server!'\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. Send a private message to a specific client. Use the send_private_message tool with the client_id and message parameters.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "Send a private message to a specific client"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Get Detailed Client Info",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Get detailed information about client ID 1 including their permissions, groups, and connection details\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. Get comprehensive information about a specific client including their permissions, server groups, connection details, and other relevant information. Use the client_info_detailed tool with client_id parameter.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "Get detailed information about a specific client"
+			},
+			"response": []
+		},
+		{
+			"name": "6. List Server Groups",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Show me all server groups available on this TeamSpeak server\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. List all server groups with their details including group ID, name, type, and permissions. Use the list_server_groups tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "List all server groups with their details"
+			},
+			"response": []
+		},
+		{
+			"name": "7. View Server Logs",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Show me the last 20 entries from the TeamSpeak server logs\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. View recent server log entries for monitoring and troubleshooting. Use the view_server_logs tool to get the latest log entries.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "View recent server log entries for monitoring"
+			},
+			"response": []
+		},
+		{
+			"name": "8. Create Privilege Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"TEAMSPEAK\": {\n      \"host\": \"{{teamspeak_host}}\",\n      \"port\": \"{{teamspeak_port}}\",\n      \"user\": \"{{teamspeak_user}}\",\n      \"password\": \"{{teamspeak_password}}\",\n      \"server_id\": \"{{teamspeak_server_id}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Create a privilege token for server group ID 6 (Server Admin) with description 'Admin token created via MCP API'\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a TeamSpeak server administrator. Create a privilege token that allows users to join a specific server group. Use the create_privilege_token tool with token_type 0 (server group), group_id, and description.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"TEAMSPEAK\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "Create a privilege token for server group access"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test(\"Response has data\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('Data');",
+					"});",
+					"",
+					"pm.test(\"No errors in response\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(jsonData.Error).to.be.null;",
+					"    pm.expect(jsonData.Status).to.be.true;",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5001"
+		},
+		{
+			"key": "teamspeak_host",
+			"value": "192.168.82.86"
+		},
+		{
+			"key": "teamspeak_port",
+			"value": "10011"
+		},
+		{
+			"key": "teamspeak_user",
+			"value": "serveradmin"
+		},
+		{
+			"key": "teamspeak_password",
+			"value": "VPS7lG5i"
+		},
+		{
+			"key": "teamspeak_server_id",
+			"value": "1"
+		}
+	]
+}
