@@ -910,6 +910,12 @@ async function CallAndExecuteTool(selected_server:any, server_credentials:any,to
                 "GITHUB_PERSONAL_ACCESS_TOKEN": server_credentials[selected_server]?.GITHUB_PERSONAL_ACCESS_TOKEN || "",
             }
             break;
+
+        case "G_NEWS":
+            args["__credentials__"] = {
+                "SERP_API_KEY": server_credentials[selected_server]?.SERP_API_KEY || "",
+            }
+            break;
             
         default:
             break;

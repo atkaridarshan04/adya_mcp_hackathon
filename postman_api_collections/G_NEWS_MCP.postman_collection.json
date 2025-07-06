@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "933461e2-c6d0-4fd5-a490-230d2bf215d9",
+		"name": "Google News MCP Collection",
+		"description": "A collection of Google News API requests for MCP integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38192013",
+		"_collection_link": "https://myteam-8941.postman.co/workspace/MCP-Servers-API~d1994848-a4f9-4c16-9983-8f73603007a2/collection/38192013-933461e2-c6d0-4fd5-a490-230d2bf215d9?action=share&source=collection_link&creator=38192013"
+	},
+	"item": [
+		{
+			"name": "Search News by Keyword",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"selected_server_credentials\": {\n        \"G_NEWS\": {\n            \"SERP_API_KEY\": \"{{serp_api_key}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Search for the latest news about AI & Technology\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful news assistant. When asked to search for news, call the google_news_search tool directly with appropriate parameters. Do not return code snippets or tool_code blocks. Instead, execute the tool directly with parameters like q (query), gl (country), hl (language), etc. Always execute the tool call immediately rather than suggesting code.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"G_NEWS\"]\n}"
+				},
+				"url": {
+					"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+					"host": [
+						"{{dev-js-host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search News with Country Filter",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"selected_server_credentials\": {\n        \"G_NEWS\": {\n            \"SERP_API_KEY\": \"{{serp_api_key}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Find news about tourism in India\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful news assistant. When asked to search for news, call the google_news_search tool directly with appropriate parameters. Do not return code snippets or tool_code blocks. Instead, execute the tool directly with parameters like q (query), gl (country), hl (language), etc. When country filtering is mentioned, use the appropriate country code (e.g., 'in' for India).\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"G_NEWS\"]\n}"
+				},
+				"url": {
+					"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+					"host": [
+						"{{dev-js-host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search News with Language Filter",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"selected_server_credentials\": {\n        \"G_NEWS\": {\n            \"SERP_API_KEY\": \"{{serp_api_key}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Find news about technology in Spanish language\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful news assistant. When asked to search for news, call the google_news_search tool directly with appropriate parameters. Do not return code snippets or tool_code blocks. Instead, execute the tool directly with parameters like q (query), gl (country), hl (language), etc. When language filtering is mentioned, use the appropriate language code (e.g., 'es' for Spanish).\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"G_NEWS\"]\n}"
+				},
+				"url": {
+					"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+					"host": [
+						"{{dev-js-host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search News by Topic",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"selected_server_credentials\": {\n        \"G_NEWS\": {\n            \"SERP_API_KEY\": \"{{serp_api_key}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Find the latest news about climate change\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful news assistant. When asked to search for news, call the google_news_search tool directly with appropriate parameters. Do not return code snippets or tool_code blocks. Instead, execute the tool directly with parameters like q (query), gl (country), hl (language), etc. For topic-based searches, use clear and specific query terms.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"G_NEWS\"]\n}"
+				},
+				"url": {
+					"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+					"host": [
+						"{{dev-js-host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search News with Processing",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"selected_server_credentials\": {\n        \"G_NEWS\": {\n            \"SERP_API_KEY\": \"{{serp_api_key}}\"\n        }\n    },\n    \"client_details\": {\n        \"api_key\": \"{{gemini_api_key}}\",\n        \"temperature\": 0.1,\n        \"max_tokens\": 20000,\n        \"input\": \"Search for news about space exploration and summarize the key findings\",\n        \"input_type\": \"text\",\n        \"prompt\": \"You are a helpful news assistant. When asked to search for news, call the google_news_search tool directly with appropriate parameters. Do not return code snippets or tool_code blocks. Instead, execute the tool directly with parameters like q (query), gl (country), hl (language), etc.\",\n        \"chat_model\": \"gemini-2.0-flash-lite\",\n        \"chat_history\": []\n    },\n    \"selected_client\": \"MCP_CLIENT_GEMINI\",\n    \"selected_servers\": [\"G_NEWS\"]\n}"
+				},
+				"url": {
+					"raw": "{{dev-js-host}}/api/v1/mcp/process_message",
+					"host": [
+						"{{dev-js-host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
