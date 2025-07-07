@@ -36,5 +36,16 @@ ServersConfig = [
 			"teamspeak_mcp.server"
 		],
 		"cwd": "../servers/TEAMSPEAK"
+	},
+    {
+		"server_name": "WHATSAPP",
+        "server_features_and_capability": "WhatsApp MCP server provides comprehensive WhatsApp Business API integration including messaging, group management, session handling, and chat history. Supports sending text messages, creating/managing groups, adding/removing participants, retrieving chat lists and message history, and managing WhatsApp API sessions through GreenAPI.",
+		"command": "uv",
+		"args": [
+			"--directory",
+			"../servers/WHATSAPP",
+			"run",
+			"whatsapp-mcp"
+		]
 	}
 ]

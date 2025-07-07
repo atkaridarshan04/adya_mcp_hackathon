@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "d574629c-a25d-449f-b940-5dfa779d39b6",
+		"name": "WhatsApp MCP Collection",
+		"description": "Comprehensive testing collection for WhatsApp MCP server with 9 core tools: session management, messaging, chat history, group operations, and account information. Includes various test scenarios for business use cases.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38192013",
+		"_collection_link": "https://myteam-8941.postman.co/workspace/MCP-Servers-API~d1994848-a4f9-4c16-9983-8f73603007a2/collection/38192013-d574629c-a25d-449f-b940-5dfa779d39b6?action=share&source=collection_link&creator=38192013"
+	},
+	"item": [
+		{
+			"name": "Open WhatsApp Session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Open a new WhatsApp session and verify the connection status\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp Business API assistant. Open a new session and confirm the connection status. Use the open_session tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Session Status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Check the current WhatsApp session status and authentication state\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp Business API assistant. Check the current session status. Use the get_session_status tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account Information",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Get detailed WhatsApp account information including settings and instance state\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp Business API assistant. Retrieve comprehensive account information including settings, instance state, and configuration details. Use the get_account_info tool and format the response clearly.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				},
+				"description": "Get comprehensive WhatsApp account information and settings"
+			},
+			"response": []
+		},
+		{
+			"name": "Send Text Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Send message 'Hello! This is a test message from WhatsApp MCP Server.' to {{test_phone_number}}\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp messaging assistant. Send the specified message to the given phone number. Use the send_message tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Chat History",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Get the chat history from number {{test_phone_number_2}}\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp chat history assistant. Retrieve message history for the specified chat. Use the get_chat_history tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Business Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Send a business message to {{test_phone_number}} saying 'Thank you for your inquiry. Our team will get back to you within 24 hours.'\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp business messaging assistant. Send the specified business message. Use the send_message tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create WhatsApp Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Create a WhatsApp group named 'MCP Test Group' with participants {{test_phone_number_2}} and {{test_phone_number_3}}\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp group management assistant. Create a new group with the specified name and participants. Use the create_group tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Participants",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Get the list of participants in the WhatsApp group {{test_group_id}}\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp group management assistant. Retrieve the list of participants for the specified group. Use the get_group_participants tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Message to Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selected_server_credentials\": {\n    \"WHATSAPP\": {\n      \"GREENAPI_ID_INSTANCE\": \"{{greenapi_id_instance}}\",\n      \"GREENAPI_API_TOKEN\": \"{{greenapi_api_token}}\"\n    }\n  },\n  \"client_details\": {\n    \"api_key\": \"{{gemini_api_key}}\",\n    \"temperature\": 0.1,\n    \"max_tokens\": 20000,\n    \"input\": \"Send message 'Hello everyone! This is a test message to the group from WhatsApp MCP Server.' to group {{test_group_id}}\",\n    \"input_type\": \"text\",\n    \"prompt\": \"You are a WhatsApp group messaging assistant. Send the specified message to the given group. Use the send_message tool.\",\n    \"chat_model\": \"gemini-2.0-flash-lite\",\n    \"chat_history\": []\n  },\n  \"selected_client\": \"MCP_CLIENT_GEMINI\",\n  \"selected_servers\": [\"WHATSAPP\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/mcp/process_message",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mcp",
+						"process_message"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}

@@ -6,7 +6,7 @@
 ---
 
 ## 🎥 Credentials Gathering Video
-- **Gathering Credentials & Setup(Full end-to-end video)**: [Watch Here](https://drive.google.com/file/d/1Abg6Ny7VcBXJMJ1XiA2BgXrksjdpuIhm/view?usp=sharing)
+- **Gathering Credentials & Setup(Full end-to-end video)**: [Watch Here](https://drive.google.com/file/d/1e1_43yTF0y2GsY3OBEBhnQUIKcpT5C0X/view?usp=sharing)
 
 ---
 

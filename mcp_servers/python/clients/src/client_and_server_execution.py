@@ -931,6 +931,9 @@ async def call_and_execute_tool(
         case "TEAMSPEAK":
             args["teamspeak_credentials"] = creds
             pass
+        case "WHATSAPP":
+            args["__credentials__"] = creds
+            pass
 
     client = MCPServers[selected_server]
 
