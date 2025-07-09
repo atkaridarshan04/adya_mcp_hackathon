@@ -1,4 +1,4 @@
-# Vanij MCP Platform
+# Vanij MCP Platform - Team A.D.O.R
 
 ## 🚀 [MCP Integration Demo Video. (watch here)](https://drive.google.com/file/d/14JvBERtsT1ed1Db5GCDLllqdW5BL684S/view?usp=sharing)
 
@@ -50,9 +50,9 @@ The Vanij MCP Platform enables AI assistants to interact with external services 
 │   │   │   └── ...
 │   │   ├── servers/                  # MCP servers
 │   │   │   ├── WORDPRESS/           # WordPress integration
-│   │   │   ├── ZOOMMCP/             # Zoom integration
-│   │   │   ├── SALESFORCE_MCP/      # Salesforce integration
-│   │   │   ├── SLACK_MCP/           # Slack integration
+│   │   │   ├── GITHUB/              # GitHub integration
+│   │   │   ├── G_NEWS/              # Google News integration
+
 │   │   │   └── etc...
 │   │   └── package.json
 │   └── python/                       # Python implementation
@@ -64,9 +64,9 @@ The Vanij MCP Platform enables AI assistants to interact with external services 
 │       │   └── ...
 │       └── servers/                  # MCP servers
 │           ├── MCP-GSUITE/          # GSuite integration
-│           ├── FACEBOOK_MCP/        # Facebook integration
-│           ├── FACEBOOK_ADS_MCP/    # Facebook Ads integration
-│           ├── POWER_BI_MCP/        # Power BI integration
+│           ├── AWS-EC2/             # AWS EC2 integration
+│           ├── TEAMSPEAK/           # TeamSpeak integration
+│           ├── WHATSAPP/            # WhatsApp integration
 │           └── etc ...
 ├── mcp_servers_documentation/        # Detailed documentation of about MCP servers
 ├── postman_api_collections/         # API testing collections
@@ -139,7 +139,7 @@ cd mcp_servers/python/clients
 ### 2. Create Virtual Environment
 
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 
 ### 3. Activate Virtual Environment
@@ -165,7 +165,7 @@ This command automatically installs all server dependencies as well.
 ### 5. Run the Client
 
 ```bash
-python src/main.py
+python run.py
 ```
 
 ### Configuration
@@ -182,22 +182,18 @@ mcp_servers/python/clients/src/client_and_server_config.py
 | Server | Description | Status |
 |--------|-------------|--------|
 | **WordPress** | Content management and blog operations | ✅ Active |
-| **Zoom** | Video conferencing and meeting management | ✅ Active |
-| **Salesforce** | CRM and sales automation | ✅ Active |
-| **Slack** | Team communication and collaboration | ✅ Active |
-| **Jira** | Project management and issue tracking | ✅ Active |
-| **Google Drive** | Cloud storage and file management | ✅ Active |
-| **Zendesk** | Customer support and ticketing | ✅ Active |
-| **HubSpot** | Marketing and CRM platform | ✅ Active |
+| **GitHub** | Repository management and version control | ✅ Active |
+| **Google News** | News aggregation and content retrieval | ✅ Active |
+
 
 ### Python Implementation
 
 | Server | Description | Status |
 |--------|-------------|--------|
 | **GSuite** | Google Workspace integration | ✅ Active |
-| **Facebook** | Social media platform integration | ✅ Active |
-| **Facebook Ads** | Advertising and campaign management | ✅ Active |
-| **Power BI** | Business intelligence and analytics | ✅ Active |
+| **AWS EC2** | Amazon EC2 cloud computing integration | ✅ Active |
+| **TeamSpeak** | Voice communication server integration | ✅ Active |
+| **WhatsApp** | Messaging platform integration | ✅ Active |
 
 ## ⚙️ Configuration
 
@@ -301,4 +297,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ by the Vanij Team**
+**Built with ❤️ by the Adya Team and Team A.D.O.R**
