@@ -910,6 +910,13 @@ async function CallAndExecuteTool(selected_server:any, server_credentials:any,to
                 "GITHUB_PERSONAL_ACCESS_TOKEN": server_credentials[selected_server]?.GITHUB_PERSONAL_ACCESS_TOKEN || "",
             }
             break;
+        case "ATLASSIAN":
+            args["__credentials__"] = {
+                "TRELLO_API_KEY": server_credentials[selected_server]?.TRELLO_API_KEY || "",
+                "TRELLO_TOKEN": server_credentials[selected_server]?.TRELLO_TOKEN || "",
+                "TRELLO_BOARD_ID": server_credentials[selected_server]?.TRELLO_BOARD_ID || "",
+            }
+            break;
             
         default:
             break;

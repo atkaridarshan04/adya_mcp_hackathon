@@ -4,7 +4,11 @@
 	"private": true,
 	"workspaces": [
 		"clients",
-		"servers/*"
+		"servers/WORDPRESS",
+		"servers/GITHUB",
+		"servers/ATLASSIAN",
+		"servers/TABLEAU",
+		"servers/mcp-server-trello"
 	],
 	"scripts": {
 		"dev:client": "npm run dev --workspace=clients",

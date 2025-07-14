@@ -18,7 +18,7 @@ export async function GeminiProcessor(data: any): Promise<LlmResponseStruct> {
       prompt: '',
       api_key: '',
 
-      chat_model: 'gemini-2.0-pro',
+      chat_model: 'gemini-1.5-flash',
       vision_model: 'gemini-pro-vision',
       speech_model: '',
 
