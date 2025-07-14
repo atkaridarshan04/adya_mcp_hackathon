@@ -139,7 +139,7 @@ cd mcp_servers/python/clients
 ### 2. Create Virtual Environment
 
 ```bash
-python3 -m venv venv
+python -m venv venv
 ```
 
 ### 3. Activate Virtual Environment

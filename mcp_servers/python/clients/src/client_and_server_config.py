@@ -27,15 +27,18 @@ ServersConfig = [
 			"aws_mcp_server"
 		]
 	},
-	{
+{
 		"server_name": "TEAMSPEAK",
 		"server_features_and_capability": "TeamSpeak MCP server provides comprehensive TeamSpeak server management capabilities including user management, channel operations, server administration, messaging, and real-time monitoring. Supports creating/deleting channels, managing user permissions, sending messages, kicking/banning users, and retrieving server statistics and client information.",
-		"command": "python",
+		"command": "uv",
 		"args": [
+			"--directory",
+			"../servers/TEAMSPEAK",
+			"run",
+			"python",
 			"-m",
 			"teamspeak_mcp.server"
-		],
-		"cwd": "../servers/TEAMSPEAK"
+		]
 	},
     {
 		"server_name": "WHATSAPP",
